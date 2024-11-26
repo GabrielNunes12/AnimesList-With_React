@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container for user watch anime
+
+Person(user, user, "user of the AnimeReactjs")
+
+System_Boundary(c1, "System"){
+    Container(Frontend, "Reactjs", "Frontend using reactjs, for your favorites animes")
+    Container(Backend, "Java/Springboot", "Backend using Java with Springboot, save user info and display animes")
+}
+
+System_Boundary(c2, "Third-parties"){
+    Container(API_ANIME, "Listing animes", "Frontend using reactjs, for your favorites animes")
+}
+Rel(user, Frontend, "uses", "HTTPS")
+Rel_Back(user, Frontend, "returns", "JSON")
+Rel(Frontend, Backend, "Calls API", "JSON")
+Rel(Backend, API_ANIME, "Fetched data from API", "JSON")
+Rel_Back(Frontend, Backend, "Return list of animes", "JSON")
+
+
+@enduml
